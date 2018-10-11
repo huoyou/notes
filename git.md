@@ -126,11 +126,13 @@ git并不能自动解决冲突，于是它在代码中插入冲突标记。
 
 #### 配置 .gitignore
 通常会被ignore的文件有：
+
 * log文件
 * task runner builds
 * node.js项目中的node_modules文件夹
 * IDEs比如NetBeans和IntelliJ生成的文件
 * 个人笔记
+
 以下是一个.gitignore文件的例子：
 
         *.log 
