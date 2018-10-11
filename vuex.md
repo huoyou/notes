@@ -40,7 +40,7 @@ export const other = (state) => {
 }
 ```
 
-#### mutation-type.js示例（我们会将所有mutations的函数名放在这个文件里）：
+#### mutation-type.js示例（我们会将所有`mutations`的函数名放在这个文件里）：
 ```javascript
 export const SET_NAME = 'SET_NAME';
 export const SET_AGE = 'SET_AGE';
@@ -144,3 +144,5 @@ export default {
     }
 };
 ```
+
+[参考处](https://segmentfault.com/a/1190000012015742)
