@@ -42,7 +42,5 @@ function add(a,b)
  {
      return a+b;
  }
-
-
-
+* 图片链接
 
