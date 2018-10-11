@@ -1,3 +1,40 @@
+#### 状态管理模式、集中式存储管理 一听就很高大上，蛮吓人的。在我看来 vuex 就是把需要共享的变量全部存储在一个对象里面，然后将这个对象放在顶层组件中供其他组件使用。这么说吧，将vue想作是一个js文件、组件是函数，那么vuex就是一个全局变量，只是这个“全局变量”包含了一些特定的规则而已。
+```javascript
+const store = new Vuex.Store({
+    state: {
+        name: 'weish',
+        age: 22
+    },
+    getters: {
+        personInfo(state) {
+            return `My name is ${state.name}, I am ${state.age}`;
+        }
+    }
+    mutations: {
+        SET_AGE(state, age) {
+            commit(age, age);
+        }
+    },
+    actions: {
+        nameAsyn({commit}) {
+            setTimeout(() => {
+                commit('SET_AGE', 18);
+            }, 1000);
+        }
+    },
+    modules: {
+        a: modulesA
+    }
+}
+```
+这个就是最基本也是完整的vuex代码；vuex 包含有五个基本的对象：
+
+* state：存储状态。也就是变量；
+* getters：派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。外部调用方式：  store.getters.personInfo()。就和vue的computed差不多；
+* mutations：提交状态修改。也就是set、get中的set，这是vuex中唯一修改state的方式，但不支持异步操作。第一个参数默认是state。外部调用方式：store.commit('SET_AGE', 18)。和vue中的methods类似。
+* actions：和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。外部调用方式：store.dispatch('nameAsyn')。
+* modules：store的子模块，内容就相当于是store的一个实例。调用方式和前面介绍的相似，只是要加上当前子模块名，如：store.a.getters.xxx()。
+
 #### vue-cli中使用vuex的方式
 一般来讲，我们都会采用vue-cli来进行实际的开发，在vue-cli中，开发和调用方式稍微不同。
 
@@ -82,7 +119,7 @@ export default {
 };
 ```
 
-#### ndex.js示例（组装vuex）：
+#### index.js示例（组装vuex）：
 ```javascript
 import vue from 'vue';
 import vuex from 'vuex';
