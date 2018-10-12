@@ -177,8 +177,6 @@ new Vue({
     <button @click="ageAsyn(30)">actions改变年龄</button>
   </div>
 </template>
-```
-```javascript
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
