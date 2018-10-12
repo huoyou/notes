@@ -1,4 +1,4 @@
-#### 状态管理模式、集中式存储管理 一听就很高大上，蛮吓人的。在我看来 vuex 就是把需要共享的变量全部存储在一个对象里面，然后将这个对象放在顶层组件中供其他组件使用。这么说吧，将vue想作是一个js文件、组件是函数，那么vuex就是一个全局变量，只是这个“全局变量”包含了一些特定的规则而已。
+#### 将vue想作是一个js文件、组件是函数，那么vuex就是一个全局变量，只是这个“全局变量”包含了一些特定的规则而已。
 ```javascript
 const store = new Vuex.Store({
     state: {
@@ -59,7 +59,6 @@ const state = {
     age: 22,
     price: 9880
 };
-
 export default state;
 ```
 
@@ -68,14 +67,12 @@ export default state;
 export const name1 = (state) => {
     return state.name + "getter";
 }
-
 export const age1 = (state) => {
     return state.age + "getter"
 }
 export const price = (state) => {
     return state.price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
 }
-
 export const other = (state) => {
     return `My name is ${state.name}, I am ${state.age}.`;
 }
