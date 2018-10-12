@@ -137,6 +137,8 @@ git并不能自动解决冲突，于是它在代码中插入冲突标记。
 以下是一个.gitignore文件的例子：
 
         *.log 
+        .DS_Store
+        .svn
         build/ 
         node_modules/ 
         .idea/ 
