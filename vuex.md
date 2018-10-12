@@ -165,7 +165,7 @@ new Vue({
 ```
 
 * 在vue组件中使用时，我们通常会使用`mapGetters`、`mapActions`、`mapMutations`，然后就可以按照vue调用methods和computed的方式去调用这些变量或函数，示例如下：
-```javascript
+
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
@@ -180,7 +180,7 @@ new Vue({
     <button @click="ageAsyn(30)">actions改变年龄</button>
   </div>
 </template>
-
+```javascript
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
