@@ -29,10 +29,10 @@ const store = new Vuex.Store({
 ```
 这个就是最基本也是完整的vuex代码；vuex 包含有五个基本的对象：
 
-* state：存储状态。也就是变量；
-* getters：派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。外部调用方式：  store.getters.personInfo()。就和vue的computed差不多；
-* mutations：提交状态修改。也就是set、get中的set，这是vuex中唯一修改state的方式，但不支持异步操作。第一个参数默认是state。外部调用方式：store.commit('SET_AGE', 18)。和vue中的methods类似。
-* actions：和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。外部调用方式：store.dispatch('nameAsyn')。
+* state：存储状态。也就是变量。`...mapState写在computed中`；
+* getters：派生状态。需要对state统一进行进一步处理，比如金钱需要统一转换成人命币的千分符，则可使用getter进行统一转换。外部调用方式：  store.getters.personInfo()。就和vue的computed差不多。`...mapGetters也写在computed中`；
+* mutations：提交状态修改。也就是set、get中的set，这是vuex中唯一修改state的方式，但不支持异步操作。第一个参数默认是state。外部调用方式：store.commit('SET_AGE', 18)。和vue中的methods类似。`...mapMutations也写在computed中`.
+* actions：和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。外部调用方式：store.dispatch('nameAsyn')。`...mapActions也写在computed中`.
 * modules：store的子模块，内容就相当于是store的一个实例。调用方式和前面介绍的相似，只是要加上当前子模块名，如：store.a.getters.xxx()。
 
 #### vue-cli中使用vuex的方式
@@ -56,7 +56,8 @@ const store = new Vuex.Store({
 ```javascript
 const state = {
     name: 'weish',
-    age: 22
+    age: 22,
+    price: 9880
 };
 
 export default state;
@@ -64,12 +65,15 @@ export default state;
 
 #### getters.js示例（我们一般使用getters来获取state的状态，而不是直接使用state）：
 ```javascript
-export const name = (state) => {
-    return state.name;
+export const name1 = (state) => {
+    return state.name + "getter";
 }
 
-export const age = (state) => {
-    return state.age
+export const age1 = (state) => {
+    return state.age + "getter"
+}
+export const price = (state) => {
+    return state.price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
 }
 
 export const other = (state) => {
@@ -102,8 +106,10 @@ export default {
 import * as types from './mutation-type.js';
 
 export default {
-    nameAsyn({commit}, {age, name}) {
+    nameAsyn({commit}, name) {
         commit(types.SET_NAME, name);
+    },
+    ageAsyn({commit}, age) {
         commit(types.SET_AGE, age);
     }
 };
@@ -163,22 +169,24 @@ new Vue({
 import {mapGetters, mapMutations, mapActions} from 'vuex';
 
 /* 只写组件中的script部分 */
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
-    computed: {
-        ...mapGetters([
-            'name',
-            'age'
-        ])
-    },
-    methods: {
-        ...mapMutations({
-            setName: 'SET_NAME',
-            setAge: 'SET_AGE'
-        }),
-        ...mapActions([
-            nameAsyn
-        ])
+  name: "HelloWorld",
+  computed: {
+    ...mapState(['name','age']),
+    ...mapGetters(["name1", "age1","other","price"])
+  },
+  methods: {
+    ...mapMutations({
+      setName: "SET_NAME",
+      setAge: "SET_AGE"
+    }),
+    ...mapActions(['nameAsyn','ageAsyn']),
+    setName1() {
+      this.$store.state.name = "xiaogou";
+      this.$store.state.age++;
     }
+  }
 };
 ```
 
