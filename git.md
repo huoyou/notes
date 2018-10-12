@@ -25,11 +25,12 @@
 * git pull origin master 
 
 #### git 本地仓库上传到远程仓库
-1. git init
-2. git add .  // .添加所有
-3. git commit -m "first commit"
-4. git pull --rebase origin master //进行代码合并
-5. git push -u origin master
+1. 新建远程仓库
+2. 本地文件目录 git init
+3. git add .  // .添加所有
+4. git commit -m "first commit"
+5. git pull --rebase origin master //进行代码合并
+6. git push -u origin master
 
 #### 创建新分支
 * git branch xinfenzhi
