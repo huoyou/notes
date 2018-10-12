@@ -166,9 +166,22 @@ new Vue({
 
 * 在vue组件中使用时，我们通常会使用`mapGetters`、`mapActions`、`mapMutations`，然后就可以按照vue调用methods和computed的方式去调用这些变量或函数，示例如下：
 ```javascript
-import {mapGetters, mapMutations, mapActions} from 'vuex';
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <h2>这件衣服值{{price}}</h2>
+    <h1>hello,我是 {{name}} ,我今年 {{age}} 岁</h1>
+    <h1>hello,我是 {{name1}} ,我今年 {{age1}} 岁</h1>
+    <h1>{{other}}</h1>
+    <button @click="setName('uzi')">mutation改变姓名</button>
+    <button @click="setName1">state改变姓名</button>
+    <button @click="setAge(20)">mutation改变年龄</button>
+    <button @click="nameAsyn('iboy')">actions改变姓名</button>
+    <button @click="ageAsyn(30)">actions改变年龄</button>
+  </div>
+</template>
 
-/* 只写组件中的script部分 */
+<script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "HelloWorld",
@@ -186,8 +199,14 @@ export default {
       this.$store.state.name = "xiaogou";
       this.$store.state.age++;
     }
+  },
+  data() {
+    return {
+      msg: "Welcome to Your Vue.js App"
+    };
   }
 };
+</script>
 ```
 
 参考处：[https://segmentfault.com/a/1190000012015742](https://segmentfault.com/a/1190000012015742)
