@@ -13,13 +13,13 @@
 * git add .
 
 #### 链接远程仓库 
-* git remote add origin https://github.com/igeekbar/awesome-project.git
+* git remote add origin https://github.com/
 
 #### 上传到服务器 
 * git push origin master 
 
 #### 克隆仓库 
-* git clone https://github.com/igeekbar/awesome-project.git
+* git clone https://github.com/
 
 #### 从服务器上获得修改 
 * git pull origin master 
@@ -27,10 +27,11 @@
 #### git 本地仓库上传到远程仓库
 1. 新建远程仓库
 2. 本地文件目录 git init
-3. git add .  // .添加所有
-4. git commit -m "first commit"
-5. git pull --rebase origin master //进行代码合并
-6. git push -u origin master
+3. git remote add origin https://github.com/
+4. git add .  // .添加所有
+5. git commit -m "first commit"
+6. git pull --rebase origin master //进行代码合并
+7. git push -u origin master
 
 #### 创建新分支
 * git branch xinfenzhi
@@ -136,13 +137,20 @@ git并不能自动解决冲突，于是它在代码中插入冲突标记。
 
 以下是一个.gitignore文件的例子：
 
+        # General
         *.log 
         .DS_Store
-        .svn
         build/ 
-        node_modules/ 
-        .idea/ 
-        my_notes.txt
+        .AppleDouble
+        .LSOverride
+        <<<<<<< HEAD
+        .svn
+        .idea/
+        node_modules/
+
+        =======
+        .svn
+        node_modules/
 
 “/”说明是一个文件夹，里面的所有内容都被递归忽略
 
