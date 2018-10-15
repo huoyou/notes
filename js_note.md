@@ -620,67 +620,14 @@ add.bind(sub,4,2)();　// 4
         4xx  客户端错误，请求包含语法错误或无法完成请求
         5xx  服务器错误，服务器在处理请求的过程中发生了错误
 
-* 左右两边定宽，中间自适应
-```html
 
-<!-- float方法 -->
-<div id="left">我是左边</div>
-<div id="right">我是右边</div>
-<div id="center">我是中间</div>
-#left {
-    width: 100px;
-    float: left;
-    background-color: red;
-}
-#right {
-    width: 100px;
-    float: right;
-    background-color: pink;
-}
-#center {
-    background-color: blue;
-}
-
-<!-- 绝对定位方法 -->
-<div id="left">我是左边</div>
-<div id="right">我是右边</div>
-<div id="center">我是中间</div>
- #left {
-    width: 100px;
-    background-color: red;
-    position: absolute;
-    left: 0;
-}
-#right {
-    width: 100px;
-    background-color: pink;
-    position: absolute;
-    right: 0;
-}
-#center {
-    background-color: blue;
-}
-
-<!-- flex -->
- <div style="display:flex;">
-    <div id="left">我是左边</div>
-    <div id="center">我是中间</div>
-    <div id="right">我是右边</div>
-</div>
-#left {
-    width: 100px;
-    background-color: red;
-}
-#right {
-    width: 100px;
-    background-color: pink;
-}
-#center {
-    background-color: blue;
-    flex: 1;
-}
-```
 * documen.write和 innerHTML的区别
 
         document.write只能重绘整个页面
         innerHTML可以重绘页面的一部分
+* TCP三次握手
+
+        第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。
+        第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；
+        第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。
+* 
