@@ -15,4 +15,4 @@ console.log(func()); // what?
 ```
 * javascript的typeof返回哪些数据类型.
 
-        string,boolean,number,undefined,function,object
+    string,boolean,number,undefined,function,object
