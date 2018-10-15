@@ -28,20 +28,33 @@
 
     <h3>实现三列宽度自适应布局</h3>
     <div style="display:flex;">
-            <div id="center">我是中间</div>
-            <div id="right">我是右边</div>
+        <div id="center">我是中间</div>
+        <div id="right">我是右边</div>
     </div>
-    
+
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-    var i = 5;
-    function fo() {
-        var i = 4;
-        var fn = new Function("alert(i)")
-        fn();
-    }
-    fo(); // 5
+    name = 'this is window';
+    var obj1 = {
+        name: 'php',
+        t: function () {
+            console.log(this.name)
+        }
+    };
+    var dog1 = {
+        name: 'huzi'
+    };
+
+    obj1.t();
+
+    dog1.t = obj1.t;
+
+    var tmp = dog1.t;
+    tmp(); //this本来指向window
+
+    (dog1.t = obj1.t)();
+    dog1.t.call(dog1);
 </script>
 
 </html>

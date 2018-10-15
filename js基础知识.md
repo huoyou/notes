@@ -14,6 +14,12 @@ console.log(func()); // what?
 // func是在window的上下文中被执行的，所以不会访问到count属性。
 ```
 * this指向问题（ 参考：[http://www.68kejian.com/page/study/course/80/468?name=undefined](http://www.68kejian.com/page/study/course/80/468?name=undefined)）
+    * `如果构造函数返回值是一个对象，那么this指向的就是那个返回的对象，如果返回值不是一个对象那么this还是指向函数的实例。还有一点就是null也是对象，但是在这里this还是指向那个函数的实例，因为null比较特殊。`
+    * `this永远指向的是最后调用它的对象，也就是看它执行的时候是谁调用的，虽然函数fn是被对象b所引用，但是在将fn赋值给变量j的时候并没有执行所以最终指向的是window.`
+    * `如果一个函数中有this，但是它没有被上一级的对象所调用，那么this指向的就是window`
+    * `如果一个函数中有this，这个函数有被上一级的对象所调用，那么this指向的就是上一级的对象`
+    * `如果一个函数中有this，这个函数中包含多个对象，尽管这个函数是被最外层的对象所调用，this指向的也只是它上一级的对象。`
+    * `在类里面的静态方法是不能访问类的非静态成员的，原因很简单，我们要想在本类的方法中访问本类的其它成员，我们需要使用this这个引用，而this这个引用指针是代表调用此方法的对象，我们说了静态的方法是不用对象调用的，而是使用类名来访问，所以根本就没有对象存在，也就没有this这个引用了，没有了this这个引用就不能访问类里面的非静态成员，又因为类里面的静态成员是可以不用对象来访问的，所以类里面的静态方法只能访问类的静态的属性，既然this不存在，在静态方法中访其它静态成员我们使用的是一个特殊的类“self”；self和this相似，只不过self是代表这个静态方法所在的类。所以在静态方法里，可以使用这个方法所在的类的“类名”，也可以使用“self”来访问其它静态成员。`
 
 1. 普通函数调用，指向windows
 ```javascript
@@ -63,6 +69,205 @@ var obj={
 }
 var showValue2=showValue.bind(obj);
 showValue2()//输出4，this指向了obj对象
+```
+5. this实例
+```javascript
+//1
+var a = "1";
+function demo() {
+    var a = "2";
+    alert(this==window);
+    alert(this.a);
+}
+new demo(); // undefined (我们说一下作用域链：一个执行环境的作用域是把自己的作用域放在最顶端，其次是嵌套它的函数也就是父级，最后是 window全局作用域，这样就形成了一个作用域链。下面我们来说一下this的 指向：如果使用了new 实例化了一个对象，那么this就指向实例化的对象，如果没有出现new 实例化，this用于指向的是window。)
+demo(); // 1 (new demo(),实例化了对象，这个时候this 就指向了实例化的对象，但是demo并没有使用this关键字定义a变量，虽然使用var定义了a变量，但是var 定义的变量，并不会放在原型链中，也就是它是私有的，外部无法访问。这个时候通过原型链找不到a属性，所以输出:undefined.)
+
+//2
+var a = "1";
+function demo() {
+    var a = "2";
+    alert(this==window);
+    alert(this.a);
+}
+new demo(); // false undefined
+demo(); // true 1
+
+
+//3
+function demo() {
+    a = "2";
+    this.a = "11";
+    alert(a);
+}
+demo();  // 11
+alert(a);  // 11
+
+//4
+var a = 1;
+function test() {
+    var a = 2;
+    console.log(this.a); 
+}
+test.a = 3;
+test();  // 1 (这个实例中this指向的还是window，所有test.a=3不会有任何的作用，最终，输出的还是1。)
+
+//call修改this指向
+var a = 1;
+function test() {
+    var a = 2;
+    console.log(this.a); 
+}
+var obj = {
+    a: 3
+};
+test.call(obj); // 3 (我们把test中的this通过call()方法，指向了obj对象了，所以这个时候this就是 obj了。)
+
+//对象中方法的this
+var age=12;
+var people={
+    age:24,
+    sayAge:function () {
+        return age;
+    },
+    sayAge1:function () {
+        return this.age;
+    }
+};
+alert(people.sayAge()); //12 ( 直接使用了age，这个时候peop le在自己的作用域链里面没有查找到age，所以就进行window作用域链的查找，结果找到了)
+alert(people.sayAge1()); //24 (使用了this，people就 查找自己的作用域链，结果就查找到了24.)
+
+//闭包中的this
+var age=12;
+var people={
+    age:24,
+    sayAge:function () {
+        function innerAge() {
+            return this.age;
+        }
+        return innnerAge;
+    },
+    sayAge1:function () {
+        return this.age;
+    }
+};
+alert(people.sayAge()()); // 12 (this永远指向的是调用它的对象，我们虽然通过people.sayAge()()，调用了sayAge()方法，但是因为sayAge() 方法返回的是一个函数，然后我们在执行返回的函数，这就不是对象的调用了，只是普通函数的运行，之前我们说过，普通函数的this永远指向window。所以，innerAge()中的this==window.)
+
+//5
+var age=12;
+var people={
+    age:24,
+    sayAge:function () {
+        var that=this;
+        function innerAge() {
+            return that.age;
+        }
+        return innnerAge;
+    },
+    sayAge1:function () {
+        return this.age;
+    }
+};
+alert(people.sayAge()()); // 24
+
+//作为对象的方法调用
+var age = 12;
+function sayAge() {
+    return this.age;
+}
+var people = {
+    age: 24,
+    sayAge: sayAge,
+    sayAge1: function() {
+        return this.age;
+    }
+};
+alert(people.sayAge());//24
+alert(sayAge());//12
+
+//嵌套函数作用域中的this
+var a = 1;
+function test(){
+    console.log(this.a); // 2
+    function test2(){
+        console.log(this.a); // 1 （嵌套函数被调用是并没有继承被嵌套函数的this引用，在嵌套函数被调用时，this指向全局对象。）
+    }
+    test2();
+}
+var obj = {a: 2, fn: test};
+obj.fn();
+//多个对象嵌套中的this
+var o = {
+    a:10,
+    b:{
+        a:12,
+        fn:function(){
+            console.log(this.a); //12 
+        }
+    }
+}
+o.b.fn();
+//情况1：如果一个函数中有this，但是它没有被上一级的对象所调用，那么this指向的就是window，这里需要说明的是在js的严格版中this指向的不是window，但是我们这里不探讨严格版的问题，你想了解可以自行上网查找。
+//情况2：如果一个函数中有this，这个函数有被上一级的对象所调用，那么this指向的就是上一级的对象。
+//情况3：如果一个函数中有this，这个函数中包含多个对象，尽管这个函数是被最外层的对象所调用，this指向的也只是它上一级的对象。
+
+//5
+var o = {
+    a:10,
+    b:{
+        a:12,
+        fn:function(){
+            console.log(this.a); //undefined
+            console.log(this); //window 
+        }
+    }
+}
+var j = o.b.fn;
+j(); //（`this永远指向的是最后调用它的对象，也就是看它执行的时候是谁调用的，虽然函数fn是被对象b所引用，但是在将fn赋值给变量j的时候并没有执行所以最终指向的是window.`）
+
+//6
+var age = 12;
+function people() {
+    age=50;
+    this.age=24;
+    return {}; //或者 return null; (null也是对象)
+}
+people.sayAge1=function(){
+    alert(age);
+}
+people.prototype.sayAge = function () {
+    return this.age;
+}
+var p=new people();
+alert(p.sayAge());//p.sayAge is not a function
+//改下代码
+var age = 12;
+function people() {
+    age=50;
+    this.age=24;
+    return 1;
+}
+people.sayAge1=function(){
+    alert(age);
+}
+people.prototype.sayAge = function () {
+    return this.age;
+}
+var p=new people();
+alert(p.sayAge());//24 (`如果构造函数返回值是一个对象，那么this指向的就是那个返回的对象，如果返回值不是一个对象那么this还是指向函数的实例。还有一点就是null也是对象，但是在这里this还是指向那个函数的实例，因为null比较特殊。`)
+
+//静态方法中的this
+var age = 12;
+function people() {
+    this.age=24;
+}
+people.sayAge1=function(){
+    alert(this.age);
+}
+people.prototype.sayAge = function () {
+    return this.age;
+}
+alert(people.sayAge1()); //undefined
+alert(people.prototype.sayAge()); //undefined (静态方法不属于实例化对象，是共有的，所以不能有代表某个对象的this。这句话很好理解就是静态方法直接通过函数名就能使用  ，实例化的对象 无法访问静态方法。因此， 也就没有所谓的this， 同理也就无法使用this了。 )
 ```
 * javascript的typeof返回哪些数据类型.
 
@@ -122,6 +327,10 @@ alert(a);
         1. 创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
         2. 属性和方法被加入到 this 引用的对象中。
         3. 新创建的对象由 this 所引用，并且最后隐式的返回 this 。
+        (1) var p={}; 也就是说，初始化一个对象p
+        (2) p.__proto__ = Person.prototype;
+        (3) Person.call(p); 也就是说构造p，也可以称之为初始化p。
+
 * 希望获取到页面中所有的checkbox怎么做？(不使用第三方框架)
 ```javascript
 var inputs = document.getElementsByTagName("input");//获取所有的input标签对象
