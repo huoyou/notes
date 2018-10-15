@@ -13,3 +13,6 @@ console.log(func()); // what?
 // 答案:是1和undefined。
 // func是在window的上下文中被执行的，所以不会访问到count属性。
 ```
+* javascript的typeof返回哪些数据类型.
+
+        string,boolean,number,undefined,function,object
