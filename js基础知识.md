@@ -13,7 +13,8 @@ console.log(func()); // what?
 // 答案:是1和undefined。
 // func是在window的上下文中被执行的，所以不会访问到count属性。
 ```
-* this指向问题
+* this指向问题（ 参考：[http://www.68kejian.com/page/study/course/80/468?name=undefined](http://www.68kejian.com/page/study/course/80/468?name=undefined)）
+
 1. 普通函数调用，指向windows
 ```javascript
 window.value=1;
@@ -381,6 +382,7 @@ function sub(a,b)
 add.bind(sub,4,2)();　// 4
 ```
 * javascript基本数据类型和引用数据类型
+
 基本类型
 
         undefind null number string boolean
@@ -411,6 +413,7 @@ add.bind(sub,4,2)();　// 4
 
 * 左右两边定宽，中间自适应
 ```html
+
 <!-- float方法 -->
 <div id="left">我是左边</div>
 <div id="right">我是右边</div>
@@ -428,6 +431,7 @@ add.bind(sub,4,2)();　// 4
 #center {
     background-color: blue;
 }
+
 <!-- 绝对定位方法 -->
 <div id="left">我是左边</div>
 <div id="right">我是右边</div>
@@ -447,6 +451,7 @@ add.bind(sub,4,2)();　// 4
 #center {
     background-color: blue;
 }
+
 <!-- flex -->
  <div style="display:flex;">
     <div id="left">我是左边</div>
@@ -466,3 +471,7 @@ add.bind(sub,4,2)();　// 4
     flex: 1;
 }
 ```
+* documen.write和 innerHTML的区别
+
+        document.write只能重绘整个页面
+        innerHTML可以重绘页面的一部分

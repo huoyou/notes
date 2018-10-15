@@ -35,18 +35,13 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-    function show(sex) {
-        console.log("普通函数" + sex);
+    var i = 5;
+    function fo() {
+        var i = 4;
+        var fn = new Function("alert(i)")
+        fn();
     }
-    var person = {
-        name: "aa",
-        age: 14
-    };
-    show.call(person, "男");
-    show.apply(person, ["女"]);
-    //对于bind来说，用法更加的灵活
-    var ss = show.bind(person, "不明");
-    ss();
+    fo(); // 5
 </script>
 
 </html>
