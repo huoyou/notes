@@ -13,18 +13,33 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-  var arr = [6, 4, 1, 8, 2, 11, 3];
-function max (prev, next) {
-    return Math.max(prev, next)
-}
-console.log(arr.reduce(max));
 
-// ES6
-var arr = [6, 4, 1, 8, 2, 11, 3];
-function max (arr) {
-    return Math.max(...arr);
-}
-console.log(max(arr));
+
+function show(sex){
+			console.log("普通函数"+sex);
+		}
+		var person={
+			name:"aa",
+			age:14
+		};
+		show.call(person,"男");
+		show.apply(person,["女"]);
+		//对于bind来说，用法更加的灵活
+		var ss=show.bind(person,"不明");
+		ss();
+
+function add(a,b)  
+{  
+    alert(a+b);  
+}  
+function sub(a,b)  
+{  
+    alert(a-b);  
+}  
+add.bind(sub,4,2)();　// 4
+
+
+
 </script>
 </head>
 

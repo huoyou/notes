@@ -13,6 +13,56 @@ console.log(func()); // what?
 // 答案:是1和undefined。
 // func是在window的上下文中被执行的，所以不会访问到count属性。
 ```
+* this指向问题
+1. 普通函数调用，指向windows
+```javascript
+window.value=1;
+function getValue(){
+    console.log(this.value);
+}
+getValue();//输出1，此时的this指向window
+```
+2. 对象的方法调用，指向对象
+```javascript
+var Obj={
+    value:2,
+    getValue:function(){
+       console.log(this.value);//输出2,this指向Obj
+  }   
+}
+```
+3. 构造器方法调用，指向构造函数实例出来的对象
+```javascript
+function main(val){
+    this.value=val;
+}
+main.prototype.getValue=function(){
+    console.log(this.value);
+}
+
+var fun=new main(3);
+fun.getValue();
+fun.value;//输出3，this指向main的实例对象fun
+```
+4. call,apply,bind可以自定义this指向第一个参数
+```javascript
+function showValue(){
+    console.log(this.value);
+}
+var obj={
+    value:4
+}
+showValue.call(obj)//输出4，this指向了obj对象
+
+function showValue(){
+    console.log(this.value);
+}
+var obj={
+    value:4
+}
+var showValue2=showValue.bind(obj);
+showValue2()//输出4，this指向了obj对象
+```
 * javascript的typeof返回哪些数据类型.
 
         string,boolean,number,undefined,function,object
@@ -91,6 +141,7 @@ String.prototype.trim= function(){
 * Cookie在客户机上是如何存储的
 
         Cookies就是服务器暂存放在你的电脑里的文本文件，好让服务器用来辨认你的计算机。当你在浏览网站的时候，Web服务器会先送一小小资料放在你的计算机上，Cookies 会帮你在网站上所打的文字或是一些选择都记录下来。当下次你再访问同一个网站，Web服务器会先看看有没有它上次留下的Cookies资料，有的话，就会依据Cookie里的内容来判断使用者，送出特定的网页内容给你。
+
 * 如何获取javascript三个数中的最大值和最小值？
 ```javascript
 Math.max(a,b,c);//最大值
@@ -99,6 +150,7 @@ Math.min(a,b,c)//最小值
 * javascript是面向对象的，怎么体现javascript的继承关系？
 
         使用prototype原型来实现。
+
 * 程序中捕获异常的方法？
 ```javascript
 try{
@@ -129,6 +181,7 @@ xhr.onreadystatechange =function(){}
         alert
         confirm
         prompt
+
 *  以下代码执行结果
 ```javascript
 //第一种情况
@@ -173,22 +226,26 @@ document.documentElement.clientHeight //可视区高度，不包含滚动条宽�
         元素节点：nodeType ===1;
         文本节点：nodeType ===3;
         属性节点：nodeType ===2;
+
 * innerHTML和outerHTML的区别
 
         innerHTML(元素内包含的内容）
         outerHTML(自己以及元素内的内容）
+
 * offsetWidth offsetHeight和clientWidth clientHeight的区别
 
         (1)offsetWidth （content宽度+padding宽度+border宽度）
         (2)offsetHeight（content高度+padding高度+border高度）
         (3)clientWidth（content宽度+padding宽度）
         (4)clientHeight（content高度+padding高度）
+
 * 闭包的好处
 
         (1)希望一个变量长期驻扎在内存当中(不被垃圾回收机制回收)
         (2)避免全局变量的污染
         (3)私有成员的存在
         (4)安全性提高
+
 * JS设置css样式的几种方式
 ```javascript
 /* 1.直接设置style属性 */
@@ -249,4 +306,95 @@ function max (arr) {
 }
 console.log(max(arr));
 ```
-* 
+* window.onload和$(document).ready的区别
+
+        1. window.onload只能出现一次，$(document).ready能出现多次
+        2. window.onload需要等所有文件都加载完才开始加载，$(document).ready只需等文档结构加载完了就开始加载
+
+* DOM0 DOM2
+
+        dom0级
+        不支持添加多个事件，后面的会覆盖前面的
+        无法取消
+        dom2
+        可以添加多个事件
+        不兼容低版本IE
+        支持事件冒泡，事件捕获
+
+* call apply bind
+```javascript
+function show(sex){
+    console.log("普通函数"+sex);
+}
+var person={
+    name:"aa",
+    age:14
+};
+show.call(person,"男");
+show.apply(person,["女"]);
+//对于bind来说，用法更加的灵活
+var ss=show.bind(person,"不明");
+ss();
+```
+在上面的代码块中，我们可以看到person对象并没有show方法，但是我们可以通过call方法来实现person对象来调用show方法。所以这种情况我认为就是改变了this的指向。
+同样的，apply和bind方法也可以实现上述的功能。
+
+改变this的指向，其中call的写法：
+```javascript
+function add(a,b)  
+{  
+    alert(a+b);  
+}  
+function sub(a,b)  
+{  
+    alert(a-b);  
+}  
+  
+add.call(sub,3,1);   // 4
+```
+这个例子中的意思就是用 add 来替换 sub，add.call(sub,3,1) == add(3,1) ，所以运行结果为：alert(4); // 注意：js 中的函数其实是对象，函数名是对 Function 对象的引用。
+
+apply写法
+```javascript
+function add(a,b)  
+{  
+    alert(a+b);  
+}  
+function sub(a,b)  
+{  
+    alert(a-b);  
+}  
+add.apply(sub,[4,2]);　// 4
+```
+不同就在于第二个参数，apply写成数组
+
+bind写法
+```javascript
+function add(a,b)  
+{  
+    alert(a+b);  
+}  
+function sub(a,b)  
+{  
+    alert(a-b);  
+}  
+add.bind(sub,4,2)();　// 4
+```
+* javascript基本数据类型和引用数据类型
+基本类型
+
+        undefind null number string boolean
+引用类型 
+
+        object Function Array
+* 哪些操作会造成内存泄露
+
+        setTimeout第一个参数是字符串而不是函数的时候就会造成内存泄露
+        闭包
+        控制台日志
+        循环（两个对象彼此引用且彼此保留）
+* js垃圾回收方式
+
+        标记清除：这是js最常用的垃圾回收方法，当一个变量进入执行环境时，例如函数中声明一个变量，将其标记为进入环境，当变量离开环境时，（函数执行结束），标记为离开环境
+        引用计数: 跟踪记录每个值被引用的次数，声明一个变量，并将引用 类型赋值给这个变量，则这个值的引用次数+1，当变量的值变成了另一个，则这个值的引用次数-1，当值的引用次数为0的时候，就回收
+
