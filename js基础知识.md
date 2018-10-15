@@ -9,7 +9,7 @@ var User = {
 console.log(User.getCount()); // what?
 var func = User.getCount;
 console.log(func()); // what?
+// 问两处console输出什么？为什么？
+// 答案:是1和undefined。
+// func是在window的上下文中被执行的，所以不会访问到count属性。
 ```
-问两处console输出什么？为什么？
-答案:是1和undefined。
-　　func是在window的上下文中被执行的，所以不会访问到count属性。
