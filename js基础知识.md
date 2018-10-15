@@ -27,6 +27,7 @@ document.documentElement.clientWidth || document.body.clientWidth
 Var target = ev.srcElement||ev.target
 ```
 * 事件委托是什么
+
         利用事件冒泡的原理，让自己的所触发的事件，让他的父元素代替执行！       
 * 看下面代码，给出输出结果。
 ```javascript
@@ -49,24 +50,24 @@ for( var i=0; i<ps.length; i++ ) {
 }
 ```
 * Javascript的事件流模型都有什么?
+
         “事件冒泡”：事件开始由最具体的元素接受，然后逐级向上传播
         “事件捕捉”：事件由最不具体的节点先接收，然后逐级向下，一直到最具体的
         “DOM事件流”：三个阶段：事件捕捉，目标阶段，事件冒泡
 * 回答以下代码，alert的值分别是多少？
 ```javascript
-<script>
-     var a = 100;  
-     function test(){  
-    	alert(a);  
-   	 a = 10;  //去掉了var 就变成定义了全局变量了
-    	alert(a);  
+var a = 100;  
+function test(){  
+    alert(a);  
+    a = 10;  //去掉了var 就变成定义了全局变量了
+    alert(a);  
 }  
 test();
 alert(a);
-</script>
 //正确答案是： 100， 10， 10
 ```
 * new操作符具体干了什么呢?
+
         1. 创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
         2. 属性和方法被加入到 this 引用的对象中。
         3. 新创建的对象由 this 所引用，并且最后隐式的返回 this 。
@@ -88,6 +89,7 @@ String.prototype.trim= function(){
 }
 ```
 * Cookie在客户机上是如何存储的
+
         Cookies就是服务器暂存放在你的电脑里的文本文件，好让服务器用来辨认你的计算机。当你在浏览网站的时候，Web服务器会先送一小小资料放在你的计算机上，Cookies 会帮你在网站上所打的文字或是一些选择都记录下来。当下次你再访问同一个网站，Web服务器会先看看有没有它上次留下的Cookies资料，有的话，就会依据Cookie里的内容来判断使用者，送出特定的网页内容给你。
 * 如何获取javascript三个数中的最大值和最小值？
 ```javascript
@@ -95,6 +97,7 @@ Math.max(a,b,c);//最大值
 Math.min(a,b,c)//最小值
 ```
 * javascript是面向对象的，怎么体现javascript的继承关系？
+
         使用prototype原型来实现。
 * 程序中捕获异常的方法？
 ```javascript
@@ -122,6 +125,7 @@ xhr.onreadystatechange =function(){}
 //如果(2)和(3)内容同时满足，则可以通过xhr.responseText，获得服务器返回的内容。
 ```
 * js中的3种弹出式消息提醒（警告窗口，确认窗口，信息输入窗口）的命令式什么？
+
         alert
         confirm
         prompt
@@ -165,18 +169,22 @@ document.documentElement.clientWidth //可视区宽度，不包含滚动条宽�
 document.documentElement.clientHeight //可视区高度，不包含滚动条宽度
 ```
 * 节点的种类有几种，分别是什么？
+
         元素节点：nodeType ===1;
         文本节点：nodeType ===3;
         属性节点：nodeType ===2;
 * innerHTML和outerHTML的区别
+
         innerHTML(元素内包含的内容）
         outerHTML(自己以及元素内的内容）
 * offsetWidth offsetHeight和clientWidth clientHeight的区别
+
         (1)offsetWidth （content宽度+padding宽度+border宽度）
         (2)offsetHeight（content高度+padding高度+border高度）
         (3)clientWidth（content宽度+padding宽度）
         (4)clientHeight（content高度+padding高度）
 * 闭包的好处
+
         (1)希望一个变量长期驻扎在内存当中(不被垃圾回收机制回收)
         (2)避免全局变量的污染
         (3)私有成员的存在
