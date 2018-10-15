@@ -384,17 +384,85 @@ add.bind(sub,4,2)();　// 4
 基本类型
 
         undefind null number string boolean
+
 引用类型 
 
         object Function Array
+
 * 哪些操作会造成内存泄露
 
         setTimeout第一个参数是字符串而不是函数的时候就会造成内存泄露
         闭包
         控制台日志
         循环（两个对象彼此引用且彼此保留）
+
 * js垃圾回收方式
 
         标记清除：这是js最常用的垃圾回收方法，当一个变量进入执行环境时，例如函数中声明一个变量，将其标记为进入环境，当变量离开环境时，（函数执行结束），标记为离开环境
         引用计数: 跟踪记录每个值被引用的次数，声明一个变量，并将引用 类型赋值给这个变量，则这个值的引用次数+1，当变量的值变成了另一个，则这个值的引用次数-1，当值的引用次数为0的时候，就回收
 
+* HTTP状态码分类
+
+        1xx  信息，服务器收到请求，需要请求者继续执行操作
+        2xx  成功，操作被成功接收并处理
+        3xx  重定向，需要进一步的操作以完成请求
+        4xx  客户端错误，请求包含语法错误或无法完成请求
+        5xx  服务器错误，服务器在处理请求的过程中发生了错误
+
+* 左右两边定宽，中间自适应
+```html
+<!-- float方法 -->
+<div id="left">我是左边</div>
+<div id="right">我是右边</div>
+<div id="center">我是中间</div>
+#left {
+    width: 100px;
+    float: left;
+    background-color: red;
+}
+#right {
+    width: 100px;
+    float: right;
+    background-color: pink;
+}
+#center {
+    background-color: blue;
+}
+<!-- 绝对定位方法 -->
+<div id="left">我是左边</div>
+<div id="right">我是右边</div>
+<div id="center">我是中间</div>
+ #left {
+    width: 100px;
+    background-color: red;
+    position: absolute;
+    left: 0;
+}
+#right {
+    width: 100px;
+    background-color: pink;
+    position: absolute;
+    right: 0;
+}
+#center {
+    background-color: blue;
+}
+<!-- flex -->
+ <div style="display:flex;">
+    <div id="left">我是左边</div>
+    <div id="center">我是中间</div>
+    <div id="right">我是右边</div>
+</div>
+#left {
+    width: 100px;
+    background-color: red;
+}
+#right {
+    width: 100px;
+    background-color: pink;
+}
+#center {
+    background-color: blue;
+    flex: 1;
+}
+```
