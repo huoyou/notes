@@ -700,6 +700,18 @@ var promise = new Promise(function(resolve, reject) {
     }
 });
 ```
+* 对MVC、MVVM的理解
+
+        MVC：是一种Web架构的模式。特点：把业务逻辑、模型数据、用户界面分离开来，让开发者将数据与表现解耦。
+        MVC三要素：Model（数据模型）、View（视图）、Contorller（控制器）
+        MVVM：是一种基于前端开发的架构模式。核心是提供对View 和 ViewModel 的双向数据绑定，View和Model之间并没有直接的联系，而是通过ViewModel进行交互，View的变动，自动反映在ViewModel上，反之亦然，这样就保证视图和数据的一致性。
+        MVVM：View UI布局，展示数据、Model 管理数据、Controller 响应用户操作，并将 Model 更新到 View 上
+* 跨域请求资源的方法有哪些
+
+        （1）JSONP（jsonp 跨域 get 请求） ：这种方式主要是通过动态插入一个script标签。浏览器对script的资源引用没有同源限制，同时资源加载到页面后会立即执行（没有阻塞的情况下）。
+        （2）proxy 代理：这种方式首先将请求发送给后台服务器，通过服务器来发送请求，然后将请求的结果传递给前端。
+        （3）cors：这是现代浏览器支持跨域资源请求的一种方式。
+        （4）XDR：这是IE8、IE9提供的一种跨域解决方案，功能较弱只支持get跟post请求，而且对于协议不同的跨域是无能为力的，比如在http协议下发送https请求。
 
 
 
