@@ -417,8 +417,8 @@ function fn1(a){
     alert(a); //参数实际上就是一个局部变量，可以理解成var a;
     a=2;
 }
-fn1(); // 1
-alert(a); // 2
+fn1(); // undefined
+alert(a); // 1
 ```
 * 浏览器的滚动距离：
 ```javascript
@@ -552,12 +552,10 @@ ss();
 
 改变this的指向，其中call的写法：
 ```javascript
-function add(a,b)  
-{  
+function add(a,b){  
     alert(a+b);  
 }  
-function sub(a,b)  
-{  
+function sub(a,b){  
     alert(a-b);  
 }  
   
@@ -567,29 +565,25 @@ add.call(sub,3,1);   // 4
 
 apply写法
 ```javascript
-function add(a,b)  
-{  
+function add(a,b){  
     alert(a+b);  
 }  
-function sub(a,b)  
-{  
+function sub(a,b){  
     alert(a-b);  
 }  
-add.apply(sub,[4,2]);　// 4
+add.apply(sub,[4,3]);　// 7 add替换sub
 ```
 不同就在于第二个参数，apply写成数组
 
 bind写法
 ```javascript
-function add(a,b)  
-{  
+function add(a,b){  
     alert(a+b);  
 }  
-function sub(a,b)  
-{  
+function sub(a,b){  
     alert(a-b);  
 }  
-add.bind(sub,4,2)();　// 4
+add.bind(sub,4,2)();　// 6 add替换sub
 ```
 * javascript基本数据类型和引用数据类型
 
