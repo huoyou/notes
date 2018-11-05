@@ -723,9 +723,51 @@ var promise = new Promise(function(resolve, reject) {
         （2）proxy 代理：这种方式首先将请求发送给后台服务器，通过服务器来发送请求，然后将请求的结果传递给前端。
         （3）cors：这是现代浏览器支持跨域资源请求的一种方式。
         （4）XDR：这是IE8、IE9提供的一种跨域解决方案，功能较弱只支持get跟post请求，而且对于协议不同的跨域是无能为力的，比如在http协议下发送https请求。
+* 变量提升
+```javascript
+console.log(foo); // function foo
+function foo() { console.log('function foo') }
+var foo = 20;
 
+// 上栗的执行顺序为
 
+// 首先将所有函数声明放入变量对象中
+function foo() { console.log('function foo') }
 
+// 其次将所有变量声明放入变量对象中，但是因为foo已经存在同名函数，因此此时会跳过undefined的赋值
+// var foo = undefined;
+
+// 然后开始执行阶段代码的执行
+console.log(foo); // function foo
+foo = 20;
+
+```
+function声明会比var声明优先级更高一点
+```javascript
+// demo01
+function test() {
+    console.log(a);
+    console.log(foo());
+
+    var a = 1;
+    function foo() {
+        return 2;
+    }
+}
+test();
+
+//相当于
+function test() {
+    function foo() {
+        return 2;
+    }
+    var a;
+    console.log(a);
+    console.log(foo());
+    a = 1;
+}
+test();
+```
 
 
 

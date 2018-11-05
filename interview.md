@@ -106,15 +106,49 @@ a = null; // 使用完毕之后，释放内存空间
 //在局部作用域中，当函数执行完毕，局部变量也就没有存在的必要了，因此垃圾收集器很容易做出判断并回收。但是全局变量什么时候需要自动释放内存空间则很难判断，因此在我们的开发中，需要尽量避免使用全局变量。
 ```
 * 堆(heap)，栈(stack)与队列(queue)
-1.栈数据结构
-栈空间先进后出，后进先出（基础数据类型：Undefined、Null、Boolean、Number、String）
-2.堆数据结构
-堆数据结构是一种树状结构。它的存取数据的方式，则与书架与书非常相似。（引用类型：Func,Arr,Obj）
-3.队列
-先进先出。在JavaScript中，理解队列数据结构的目的主要是为了清晰的明白事件循环（Event Loop）的机制到底是怎么回事。
+        1.栈数据结构
+        栈空间先进后出，后进先出（基础数据类型：Undefined、Null、Boolean、Number、String）
+        2.堆数据结构
+        堆数据结构是一种树状结构。它的存取数据的方式，则与书架与书非常相似。（引用类型：Func,Arr,Obj）
+        3.队列
+        先进先出。在JavaScript中，理解队列数据结构的目的主要是为了清晰的明白事件循环（Event Loop）的机制到底是怎么回事。
+* 实现js异步
+```javascript
+//1.使用回调函数来实现JavaScript语言的异步编程（容易引发回调函数地狱）
+//2.Promise(Promise的最大问题是代码冗余，请求任务多时，一堆的then，也使得原来的语义变得很不清楚)
 
+var promise = new Promise((resolve, reject) => {
+  this.login(resolve)
+})
+.then(() => this.getInfo())
+.catch(() => { console.log("Error") })
 
+//3.Generator 函数(两个特征。一是，function关键字与函数名之间有一个星号；二是，函数体内部使用yield表达式，定义不同的内部状态（yield在英语里的意思就是“产出”）。)
 
+function* helloWorldGenerator() {
+  yield 'hello';
+  yield 'world';
+  return 'ending';
+}
+
+var hw = helloWorldGenerator();
+
+//4.async函数(简单说来，它就是Generator函数的语法糖。)
+
+async function asyncFunc(params) {
+  const result1 = await this.login()
+  const result2 = await this.getInfo()
+}
+//异步函数存在以下四种使用形式：
+//1.函数声明： 
+async function foo() {}
+//2.函数表达式： 
+const foo = async function() {}
+//3.对象的方式： 
+let obj = { async foo() {} }
+//4.箭头函数： 
+const foo = async () => {}
+```
 
 
 
