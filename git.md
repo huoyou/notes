@@ -33,6 +33,11 @@
 6. git pull --rebase origin master //进行代码合并
 7. git push -u origin master
 
+#### git拉取远程仓库
+1.  本地文件目录 git init
+2. git remote add origin https://github.com/
+3. git pull origin master
+
 #### 创建新分支
 * git branch xinfenzhi
 
