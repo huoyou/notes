@@ -2,6 +2,13 @@
 1. git config --global user.name "my name"
 2. git config --global user.email myEmail@example.com
 
+#### win生产ssh
+1. 打开Git Bash
+2. 输入ssh-keygen，回车
+3. 可直接不输入路径，使用默认路径（c/Users/Administrator/.ssh/)
+4. 按照提示要输入两次密码，但是如果输入了，每次操作操作git库时都要输入密码，所以选择不输入密码
+5. 打开c:/Users/Administrator/.ssh/，在文件中，id_rsa是私钥文件，id_rsa.pub是公钥文件
+
 #### 创建一个新仓库 – git init
 * git init (命令行会出现  ‘Initialized empty Git repository in /home/user/Desktop/git_exercise/.git/’,说明仓库建立好)
 
