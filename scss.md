@@ -6,8 +6,7 @@
         background-image: url('../imgs/'+ $url + '@3x.png');
     }
 }
-<style lang="scss" scoped>  //vue文件中引用
-@import "../css/ff.scss";
+
 ```
 #### vue中使用vue
 1. 安装node-sass 和 sass-loader
@@ -21,4 +20,8 @@ npm i node-sass sass-loader --save-dev
        loaders: ["style", "css", "sass"]
   },   
 ```
-3. <style lang="scss" scoped="" type="text/css"></style>   
+3. vue文件中引用
+```jvascript
+<style lang="scss" scoped="" type="text/css"></style>   
+@import "../css/ff.scss";
+```
