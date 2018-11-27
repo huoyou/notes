@@ -8,7 +8,7 @@
 }
 
 ```
-#### vue中使用vue
+#### vue中使用saa
 1. 安装node-sass 和 sass-loader
 ```jvascript
 npm i node-sass sass-loader --save-dev
