@@ -22,6 +22,23 @@
 }
 ```
 9. npm start
+#### vue中使用vue
+1. 安装node-sass 和 sass-loader
+```jvascript
+npm i node-sass sass-loader --save-dev
+```
+2. 打开webpack.base.config.js在loaders里面加上
+```javascript
+  {
+       test: /\.scss$/,
+       loaders: ["style", "css", "sass"]
+  },   
+```
+3. vue文件中引用
+```jvascript
+<style lang="scss" scoped="" type="text/css"></style>   
+@import "../css/ff.scss";
+```
 #### win10系统下报错处理
 1. error MSB4132: 无法识别工具版本“2.0”。可用的工具版本为 "4.0"。
 ```node
