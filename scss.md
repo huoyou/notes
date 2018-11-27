@@ -20,4 +20,5 @@ npm i node-sass sass-loader --save-dev
        test: /\.scss$/,
        loaders: ["style", "css", "sass"]
   },   
+```
 3. <style lang="scss" scoped="" type="text/css"></style>   
