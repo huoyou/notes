@@ -22,7 +22,8 @@
 }
 ```
 9. npm start
-#### 
+#### win10系统下报错处理
+1. error MSB4132: 无法识别工具版本“2.0”。可用的工具版本为 "4.0"。
 ```node
 npm config set msvs_version 2012 --global
 ```
