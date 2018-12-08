@@ -1,4 +1,4 @@
-```javascript
+```html
 ########### 每个指令必须有分号结束。#################
 #user administrator administrators;  #配置用户或者组，默认为nobody nobody。
 #worker_processes 2;  #允许生成的进程数，默认为1
