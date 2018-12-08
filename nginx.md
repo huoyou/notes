@@ -42,6 +42,7 @@ http {
 #### 个人部分代理示例
 ```Properties
 
+
 #user  nobody;
 worker_processes  1;
 
@@ -94,7 +95,7 @@ http {
 
 
         location /api {
-           proxy_pass http://172.20.14.66:8766/api; #比如这个url中有api,他就会转发到 http://172.20.14.66:8766/api
+          proxy_pass http://172.20.14.66:8766/api;  #比如这个url中有api,他就会转发到 http://172.20.14.66:8766/api
         }
 
 
