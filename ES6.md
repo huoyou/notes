@@ -156,8 +156,7 @@ if (arr.includes('react'))
 }
 ```
 10. 指数运算符**
-```javascript
-```
+
 ```javascript
 console.log(7**3); //7的3次方
 ```
