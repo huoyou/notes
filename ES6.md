@@ -1,5 +1,6 @@
 1. 变量的声明let和const：
-* let和const都是块级作用域，也就是只在临近的{}中有效
+
+        let和const都是块级作用域，也就是只在临近的{}中有效
 2. 模版字符串
 ```javascript
 $('#result').append(
