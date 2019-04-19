@@ -114,6 +114,15 @@ const second = {
 const total = { ...first, ...second }
 console.log(total) // { a: 1, b: 2, c: 3, d: 4 }
 ```
+* 实例1(应用Math.max取出一个数组中的最大值)
+```javascript
+//ES5的写法
+Math.max.apply(null,[14,3,77]);
+//ES6写法
+Math.max(...[14,3,77]);
+//等同于
+Math.max(14,3,77)
+```
 8. import 和 export：
 ```javascript
 //a.js
