@@ -75,9 +75,18 @@ console.log(second) //'blue'
 * 组装数组或对象：
 ```javascript
 //数组
-const color = ['red', 'yellow']
-const colorful = [...color, 'green', 'pink']
-console.log(colorful) //[red, yellow, green, pink]
+const color = ['red', 'yellow'];
+const colorful = [...color, 'green', 'pink'];
+console.log(colorful); //[red, yellow, green, pink]
+
+//创建新数组
+const colorful1 = [...[], 'green', 'pink'];
+console.log(colorful1);  //  ["green", "pink"]
+
+//连接两个数组
+var arr1 = [0,1,2];
+var arr2 = [3,4,5];
+arr1.push(...arr2);
 
 //对象
 const alp = { fist: 'a', second: 'b'}
@@ -224,4 +233,48 @@ fetchData(query).then(data =>
     this.props.processfetchedData(data)
 })
 
+```
+14. map用法
+```javascript
+    // 组合新数组
+    var arr = [
+        {
+            'model': 'li',
+            'fields':
+            {
+                "number": "TASK_20190422_006",
+                "department": "产品技术中心"
+            }   
+        },
+        {
+            'model': 'zhao',
+            'fields':
+            {
+                "number": "DS_20190401_001",
+                "department": "联合利丰"
+            }   
+        }
+    ]
+    let data3 = arr.map(el => {
+        let obj = {}
+        obj = el.fields;
+        obj.model = el.model;
+        return obj;
+    })
+    console.log('---data3---', data3)  // [{'model': 'li', "number": "TASK_20190422_006","department": "产品技术中心"},{'model': 'zhao',"number": "DS_20190401_001","department": "联合利丰"}]
+    // 抽取新数组
+    let data4 = arr.map(_=>_.model);
+    console.log('---data4---', data4)  //  ["li", "zhao"]
+
+```
+15. find && findIndex
+```javascript
+    // find
+    var cc = [{name:'li',age:'18'},{name:'ls',age:'23'}]
+    let aa = cc.find(el=>el.name == 'li')
+    console.log(aa) //{name: "li", age: "18"}
+    // findIndex
+    var rr = [{name:'li',age:'18'},{name:'ls',age:'23'}]
+    let tt = rr.findIndex(el=>el.name == 'ls')
+    console.log(tt) // 1
 ```
