@@ -16,4 +16,6 @@
 4. shareCode.github.authtoken： 3efe21595ff3ef205ec82b98278848c678d69429；
 
 #### 本机配置
+octotree 令牌：dc5c4744a7e92335096f581303983b526a866730
+ 
        
