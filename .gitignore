@@ -2,14 +2,9 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-<<<<<<< HEAD
 .svn
 node_modules/
 
-=======
-.svn
-node_modules/
->>>>>>> 79e597498b622e8e5195f5affe96c7b225c8544c
 # Icon must end with two \r
 Icon
 

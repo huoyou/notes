@@ -477,3 +477,18 @@ export const numberFormat = (number, decimals, decPoint, thousandsSep, roundtag)
     }
     return s.join(dec)
 }
+
+// 保留五条历史记录
+export const historyRecord = (currentArr, newVal) => {
+    if(currentArr.indexOf(newVal) == -1) {
+        currentArr.push(newVal);
+        if(currentArr.length>5) {
+            currentArr.shift();
+        }
+    }else {
+        let index = currentArr.findIndex(el=>el == newVal);
+        currentArr.splice(index,1);
+        currentArr.push(newVal);
+    }
+    return currentArr;
+}
