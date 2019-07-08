@@ -6,6 +6,9 @@
 5. 如果要重置同步设置：按ctrl+p  输入  '>sync'  
 6. 个人电脑 gist id: e11747a15ad83d37e67f2a953ac6b8bc;
 7. ufscs旧电脑 gist id: 61a36ef61ed2ce90336659318872d0ca;
+                       31d9625acb1523bdddd2f1a4ede312c16e7cb2cb
+                       
+                       
 8. sync.token: f31f558b3347e6cbb2d33d3e5971cbbef7a36686;
 
 
