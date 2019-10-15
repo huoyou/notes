@@ -7,20 +7,20 @@
 *  原型链的尽头始终是null；
 *  原生对象充当两面派，既是构造函数函数，也是对象；
 ```javascript
-functionFoo() {
+function Person() {
 }
 
-const obj=new Foo();
+const person = new Person();
 
-console.log(Foo.prototype===obj.__proto__);                     // true
-console.log(obj.constructor=== Foo);                            // true
-console.log(Foo.prototype.__proto__===Object.prototype);        // true
-console.log(Object.prototype.__proto__===null);                 // true
-console.log(Object.constructor===Function);                     // true
+console.log(Person.prototype === person.__proto__);                     // true
+console.log(person.constructor === Person);                            // true
+console.log(Person.prototype.__proto__=== Object.prototype);        // true
+console.log(Object.prototype.__proto__ === null);                 // true
+console.log(Object.constructor === Function);                     // true
 ``` 
 2. 词法作用域(静态作用域)和动态作用域
 * JavaScript 采用的是词法作用域，函数的作用域在函数定义的时候就决定了
-* 而与词法作用域相对的是动态作用域，函数的作用域是在函数调用的时候才决定的
+* 而与词法作用域相对的是动态作用域，动态作用域是在函数调用的时候才决定的
 ```javascript
 var value = 1;
 function foo() {
@@ -32,8 +32,7 @@ function bar() {
     foo();
 }
 
-bar();
-// "local scope"
+bar(); // 1
 ```
 3. 执行上下文栈
 ```javascript
@@ -45,7 +44,7 @@ function checkscope(){
     }
     return f();
 }
-checkscope();
+checkscope(); // "local scope"
 // 模拟上下文栈
 ECStack.push(<checkscope> functionContext);
 ECStack.push(<f> functionContext);
