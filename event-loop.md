@@ -1,5 +1,5 @@
+* ![实例与实例原型的关系图](https://github.com/huoyou/notes/blob/master/imgs/eventLoop.webp)
 ```javascript
-![实例与实例原型的关系图](https://github.com/huoyou/notes/blob/master/imgs/eventLoop.webp)
 console.log(1);
 setTimeout(function(){
     console.log(2)
