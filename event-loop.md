@@ -36,3 +36,26 @@ setTimeout(function(){
 })
 // 1,7,6,8,2,4,3,5,9,11,10,12
 ```
+```javascript
+setImmediate(function(){
+  console.log(1);
+},0);
+setTimeout(function(){
+  console.log(2);
+},0);
+new Promise(function(resolve){
+  console.log(3);
+  resolve();
+  console.log(4);
+}).then(function(){
+  console.log(5);
+});
+console.log(6);
+process.nextTick(function(){
+  console.log(7);
+});
+console.log(8);
+// 3 4 6 8 7 5 2 1
+// micro-task   优先级 process.nextTick 高于 Promise.then
+// macro-task   优先级 setTimeout 高于 setImmediate
+```
