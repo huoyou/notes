@@ -1,4 +1,6 @@
 * ![实例与实例原型的关系图](https://github.com/huoyou/notes/blob/master/imgs/eventLoop.webp)
+// [参考来源](https://mp.weixin.qq.com/s/nQgsEQorv00fr4XqU764bA "https://mp.weixin.qq.com/s/nQgsEQorv00fr4XqU764bA ")
+// 因为我们仅仅需要记住几个 MicroTask 即可，排除法！别的都是 MacroTask。MicroTask 包括：Process.nextTick、Promise.then catch finally(注意我不是说 Promise)、MutationObserver。
 ```javascript
 console.log(1);
 setTimeout(function(){
