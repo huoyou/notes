@@ -478,7 +478,10 @@ export const numberFormat = (number, decimals, decPoint, thousandsSep, roundtag)
     return s.join(dec)
 }
 
-// 保留五条历史记录
+/**
+ * currentArr：传入数组
+ * newVal：传入值
+ */
 export const historyRecord = (currentArr, newVal) => {
     if(currentArr.indexOf(newVal) == -1) {
         currentArr.push(newVal);

@@ -1,5 +1,5 @@
 js进阶：[https://www.jianshu.com/u/10ae59f49b13](https://www.jianshu.com/u/10ae59f49b13)
-* 对作用域上下文和this的理解，看下列代码：
+1. 对作用域上下文和this的理解，看下列代码：
 ```javascript
 var User = {
  count: 1,
@@ -14,7 +14,7 @@ console.log(func()); // what?
 // 答案:是1和undefined。
 // func是在window的上下文中被执行的，所以不会访问到count属性。
 ```
-* this指向问题（ 参考：[http://www.68kejian.com/page/study/course/80/468?name=undefined](http://www.68kejian.com/page/study/course/80/468?name=undefined)）
+2. this指向问题（ 参考：[http://www.68kejian.com/page/study/course/80/468?name=undefined](http://www.68kejian.com/page/study/course/80/468?name=undefined)）
 ```javascript
 `如果构造函数返回值是一个对象，那么this指向的就是那个返回的对象，如果返回值不是一个对象那么this还是指向函数的实例。还有一点就是null也是对象，但是在这里this还是指向那个函数的实例，因为null比较特殊。`
 `this永远指向的是最后调用它的对象，也就是看它执行的时候是谁调用的，虽然函数fn是被对象b所引用，但是在将fn赋值给变量j的时候并没有执行所以最终指向的是window.`
@@ -22,26 +22,20 @@ console.log(func()); // what?
 `如果一个函数中有this，这个函数有被上一级的对象所调用，那么this指向的就是上一级的对象`
 `如果一个函数中有this，这个函数中包含多个对象，尽管这个函数是被最外层的对象所调用，this指向的也只是它上一级的对象。`
 `在类里面的静态方法是不能访问类的非静态成员的，原因很简单，我们要想在本类的方法中访问本类的其它成员，我们需要使用this这个引用，而this这个引用指针是代表调用此方法的对象，我们说了静态的方法是不用对象调用的，而是使用类名来访问，所以根本就没有对象存在，也就没有this这个引用了，没有了this这个引用就不能访问类里面的非静态成员，又因为类里面的静态成员是可以不用对象来访问的，所以类里面的静态方法只能访问类的静态的属性，既然this不存在，在静态方法中访其它静态成员我们使用的是一个特殊的类“self”；self和this相似，只不过self是代表这个静态方法所在的类。所以在静态方法里，可以使用这个方法所在的类的“类名”，也可以使用“self”来访问其它静态成员。`
-```
-1. 普通函数调用，指向windows
-```javascript
+// 1- 普通函数调用，指向windows
 window.value=1;
 function getValue(){
     console.log(this.value);
 }
 getValue();//输出1，此时的this指向window
-```
-2. 对象的方法调用，指向对象
-```javascript
+// 2- 对象的方法调用，指向对象
 var Obj={
     value:2,
     getValue:function(){
        console.log(this.value);//输出2,this指向Obj
   }   
 }
-```
-3. 构造器方法调用，指向构造函数实例出来的对象
-```javascript
+// 3- 构造器方法调用，指向构造函数实例出来的对象
 function main(val){
     this.value=val;
 }
@@ -52,9 +46,7 @@ main.prototype.getValue=function(){
 var fun=new main(3);
 fun.getValue();
 fun.value;//输出3，this指向main的实例对象fun
-```
-4. call,apply,bind可以自定义this指向第一个参数
-```javascript
+// 4- call,apply,bind可以自定义this指向第一个参数
 function showValue(){
     console.log(this.value);
 }
@@ -71,10 +63,7 @@ var obj={
 }
 var showValue2=showValue.bind(obj);
 showValue2()//输出4，this指向了obj对象
-```
-5. this实例
-```javascript
-//1
+// 5- this实例
 var a = "1";
 function demo() {
     var a = "2";
@@ -84,7 +73,6 @@ function demo() {
 new demo(); // undefined (我们说一下作用域链：一个执行环境的作用域是把自己的作用域放在最顶端，其次是嵌套它的函数也就是父级，最后是 window全局作用域，这样就形成了一个作用域链。下面我们来说一下this的 指向：如果使用了new 实例化了一个对象，那么this就指向实例化的对象，如果没有出现new 实例化，this用于指向的是window。)
 demo(); // 1 (new demo(),实例化了对象，这个时候this 就指向了实例化的对象，但是demo并没有使用this关键字定义a变量，虽然使用var定义了a变量，但是var 定义的变量，并不会放在原型链中，也就是它是私有的，外部无法访问。这个时候通过原型链找不到a属性，所以输出:undefined.)
 
-//2
 var a = "1";
 function demo() {
     var a = "2";
@@ -94,8 +82,6 @@ function demo() {
 new demo(); // false undefined
 demo(); // true 1
 
-
-//3
 function demo() {
     a = "2";
     this.a = "11";
@@ -104,7 +90,6 @@ function demo() {
 demo();  // 11
 alert(a);  // 11
 
-//4
 var a = 1;
 function test() {
     var a = 2;
@@ -271,23 +256,23 @@ people.prototype.sayAge = function () {
 alert(people.sayAge1()); //undefined
 alert(people.prototype.sayAge()); //undefined (静态方法不属于实例化对象，是共有的，所以不能有代表某个对象的this。这句话很好理解就是静态方法直接通过函数名就能使用  ，实例化的对象 无法访问静态方法。因此， 也就没有所谓的this， 同理也就无法使用this了。 )
 ```
-* javascript的typeof返回哪些数据类型.
+3. javascript的typeof返回哪些数据类型.
 
         string,boolean,number,undefined,function,object
-* 例举3种强制类型转换和2种隐式类型转换?
+4. 例举3种强制类型转换和2种隐式类型转换?
 
         强制（parseInt,parseFloat,number）
         隐式（==  ===）
-* IE和标准下有哪些兼容性的写法
+5. IE和标准下有哪些兼容性的写法
 ```javascript
 var ev = ev || window.event
 document.documentElement.clientWidth || document.body.clientWidth
 Var target = ev.srcElement||ev.target
 ```
-* 事件委托是什么
+6. 事件委托是什么
 
         利用事件冒泡的原理，让自己的所触发的事件，让他的父元素代替执行！       
-* 看下面代码，给出输出结果。
+7. 看下面代码，给出输出结果。
 ```javascript
 for(var i = 1; i <= 3; i++){  //建议使用let 可正常输出i的值
   setTimeout(function(){
@@ -307,12 +292,12 @@ for( var i=0; i<ps.length; i++ ) {
     })();     
 }
 ```
-* Javascript的事件流模型都有什么?
+8. Javascript的事件流模型都有什么?
 
         “事件冒泡”：事件开始由最具体的元素接受，然后逐级向上传播
         “事件捕捉”：事件由最不具体的节点先接收，然后逐级向下，一直到最具体的
         “DOM事件流”：三个阶段：事件捕捉，目标阶段，事件冒泡
-* 回答以下代码，alert的值分别是多少？
+9. 回答以下代码，alert的值分别是多少？
 ```javascript
 var a = 100;  
 function test(){  
@@ -324,7 +309,7 @@ test();
 alert(a);
 //正确答案是： 100， 10， 10
 ```
-* new操作符具体干了什么呢?
+10. new操作符具体干了什么呢?
 
         1. 创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
         2. 属性和方法被加入到 this 引用的对象中。
@@ -333,7 +318,7 @@ alert(a);
         (2) p.__proto__ = Person.prototype;
         (3) Person.call(p); 也就是说构造p，也可以称之为初始化p。
 
-* 希望获取到页面中所有的checkbox怎么做？(不使用第三方框架)
+11. 希望获取到页面中所有的checkbox怎么做？(不使用第三方框架)
 ```javascript
 var inputs = document.getElementsByTagName("input");//获取所有的input标签对象
 var checkboxArray = [];//初始化空数组，用来存放checkbox对象。
@@ -344,26 +329,26 @@ for(var i=0;i<inputs.length;i++){
   }
 }
 ```
-* 写一个function，清除字符串前后的空格。（兼容所有浏览器）
+12. 写一个function，清除字符串前后的空格。（兼容所有浏览器）
 ```javascript
 String.prototype.trim= function(){
     return this.replace(/^\s+/,"").replace(/\s+$/,"");
 }
 ```
-* Cookie在客户机上是如何存储的
+13. Cookie在客户机上是如何存储的
 
         Cookies就是服务器暂存放在你的电脑里的文本文件，好让服务器用来辨认你的计算机。当你在浏览网站的时候，Web服务器会先送一小小资料放在你的计算机上，Cookies 会帮你在网站上所打的文字或是一些选择都记录下来。当下次你再访问同一个网站，Web服务器会先看看有没有它上次留下的Cookies资料，有的话，就会依据Cookie里的内容来判断使用者，送出特定的网页内容给你。
 
-* 如何获取javascript三个数中的最大值和最小值？
+14. 如何获取javascript三个数中的最大值和最小值？
 ```javascript
 Math.max(a,b,c);//最大值
 Math.min(a,b,c)//最小值
 ```
-* javascript是面向对象的，怎么体现javascript的继承关系？
+15. javascript是面向对象的，怎么体现javascript的继承关系？
 
         使用prototype原型来实现。
 
-* 程序中捕获异常的方法？
+16. 程序中捕获异常的方法？
 ```javascript
 try{
  
@@ -373,7 +358,7 @@ try{
  
 }
 ```
-* Ajax原理
+17. Ajax原理
 ```javascript
 //创建对象
 var xhr = new XMLHttpRequest();
@@ -388,13 +373,13 @@ xhr.onreadystatechange =function(){}
 //当status ==200时，表示服务器成功返回页面和数据。
 //如果(2)和(3)内容同时满足，则可以通过xhr.responseText，获得服务器返回的内容。
 ```
-* js中的3种弹出式消息提醒（警告窗口，确认窗口，信息输入窗口）的命令式什么？
+18. js中的3种弹出式消息提醒（警告窗口，确认窗口，信息输入窗口）的命令式什么？
 
         alert
         confirm
         prompt
 
-*  以下代码执行结果
+19. 以下代码执行结果
 ```javascript
 //第一种情况
 var a=1;
@@ -421,44 +406,44 @@ function fn1(a){
 fn1(); // undefined
 alert(a); // 1
 ```
-* 浏览器的滚动距离：
+20. 浏览器的滚动距离：
 ```javascript
 //可视区域距离页面顶部的距离
 scrollTop=document.documentElement.scrollTop||document.body.scrollTop
 ```
-* 可视区的大小：
+21. 可视区的大小：
 ```javascript
 window.innerHeight //可视区高度，包含滚动条宽度
 window.innerWidth  //可视区宽度，包含滚动条宽度
 document.documentElement.clientWidth //可视区宽度，不包含滚动条宽度
 document.documentElement.clientHeight //可视区高度，不包含滚动条宽度
 ```
-* 节点的种类有几种，分别是什么？
+22. 节点的种类有几种，分别是什么？
 
         元素节点：nodeType ===1;
         文本节点：nodeType ===3;
         属性节点：nodeType ===2;
 
-* innerHTML和outerHTML的区别
+23. innerHTML和outerHTML的区别
 
         innerHTML(元素内包含的内容）
         outerHTML(自己以及元素内的内容）
 
-* offsetWidth offsetHeight和clientWidth clientHeight的区别
+24. offsetWidth offsetHeight和clientWidth clientHeight的区别
 
         (1)offsetWidth （content宽度+padding宽度+border宽度）
         (2)offsetHeight（content高度+padding高度+border高度）
         (3)clientWidth（content宽度+padding宽度）
         (4)clientHeight（content高度+padding高度）
 
-* 闭包的好处
+25. 闭包的好处
 
         (1)希望一个变量长期驻扎在内存当中(不被垃圾回收机制回收)
         (2)避免全局变量的污染
         (3)私有成员的存在
         (4)安全性提高
 
-* JS设置css样式的几种方式
+26. JS设置css样式的几种方式
 ```javascript
 /* 1.直接设置style属性 */
 element.style.height = '100px';
@@ -471,7 +456,7 @@ element.style.setProperty('height', '300px', 'important');
 /* 5.设置cssText */
 element.style.cssText += 'height: 100px !important';
 ```
-* 阻止默认行为
+27. 阻止默认行为
 ```javascript
 function stopDefault( e ) {
     // 阻止默认浏览器动作(W3C)
@@ -484,7 +469,7 @@ function stopDefault( e ) {
     return false;
 }
 ```
-* 阻止冒泡
+28. 阻止冒泡
 ```javascript
 function stopBubble(e) {
     // 如果提供了事件对象，则这是一个非IE浏览器
@@ -497,13 +482,13 @@ function stopBubble(e) {
     }
 }
 ```
-* 数组去重
+29. 数组去重
 ```javascript
 function uniqu3 (arr) {
     return [... new Set(arr)];
 }
 ```
-* 找出数组中的最大值
+30. 找出数组中的最大值
 ```javascript
 // reduce
 var arr = [6, 4, 1, 8, 2, 11, 3];
@@ -518,12 +503,12 @@ function max (arr) {
 }
 console.log(max(arr));
 ```
-* window.onload和$(document).ready的区别
+31. window.onload和$(document).ready的区别
 
         1. window.onload只能出现一次，$(document).ready能出现多次
         2. window.onload需要等所有文件都加载完才开始加载，$(document).ready只需等文档结构加载完了就开始加载
 
-* DOM0 DOM2
+32. DOM0 DOM2
 
         dom0级
         不支持添加多个事件，后面的会覆盖前面的
@@ -533,7 +518,7 @@ console.log(max(arr));
         不兼容低版本IE
         支持事件冒泡，事件捕获
 
-* call apply bind
+33. call apply bind
 ```javascript
 function show(sex){
     console.log("普通函数"+sex);
@@ -586,7 +571,7 @@ function sub(a,b){
 }  
 add.bind(sub,4,2)();　// 6 add替换sub
 ```
-* javascript基本数据类型和引用数据类型
+34. javascript基本数据类型和引用数据类型
 
 基本类型
 
@@ -596,19 +581,19 @@ add.bind(sub,4,2)();　// 6 add替换sub
 
         object Function Array
 
-* 哪些操作会造成内存泄露
+35. 哪些操作会造成内存泄露
 
         setTimeout第一个参数是字符串而不是函数的时候就会造成内存泄露
         闭包
         控制台日志
         循环（两个对象彼此引用且彼此保留）
 
-* js垃圾回收方式
+36. js垃圾回收方式
 
         标记清除：这是js最常用的垃圾回收方法，当一个变量进入执行环境时，例如函数中声明一个变量，将其标记为进入环境，当变量离开环境时，（函数执行结束），标记为离开环境
         引用计数: 跟踪记录每个值被引用的次数，声明一个变量，并将引用 类型赋值给这个变量，则这个值的引用次数+1，当变量的值变成了另一个，则这个值的引用次数-1，当值的引用次数为0的时候，就回收
 
-* HTTP状态码分类
+37. HTTP状态码分类
 
         1xx  信息，服务器收到请求，需要请求者继续执行操作
 
@@ -632,37 +617,37 @@ add.bind(sub,4,2)();　// 6 add替换sub
         503状态码：由于临时的服务器维护或者过载，服务器当前无法处理请求。通常，这个是暂时状态，一段时间会恢复
 
 
-* documen.write和 innerHTML的区别
+38. documen.write和 innerHTML的区别
 
         document.write只能重绘整个页面
         innerHTML可以重绘页面的一部分
-* TCP三次握手
+39. TCP三次握手
 
         第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。
         第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；
         第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。
-* git fetch和git pull的区别
+40. git fetch和git pull的区别
 
         git pull：相当于是从远程获取最新版本并merge到本地
         git fetch：相当于是从远程获取最新版本到本地，不会自动merge
-* attribute和property的区别
+41. attribute和property的区别
 
         attribute是dom元素在文档中作为html标签拥有的属性；
         property就是dom元素在js中作为对象拥有的属性。
         所以：
         对于html的标准属性来说，attribute和property是同步的，是会自动更新的，
         但是对于自定义的属性来说，他们是不同步的，
-* JavaScript 的同源策略
+42. JavaScript 的同源策略
 
         同源策略指的是：协议，域名，端口相同，同源策略是一种安全协议。
-* 为什么要有同源限制
+43. 为什么要有同源限制
 
         比如一个黑客程序，他利用Iframe把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。
-* JavaScript原型，原型链 ? 有什么特点？
+44. JavaScript原型，原型链 ? 有什么特点？
 
         （1）原型对象也是普通的对象，是对象一个自带隐式的 __proto__ 属性，原型也有可能有自己的原型，如果一个原型对象的原型不为null的话，我们就称之为原型链。
         （2）原型链是由一些用来继承和共享属性的对象组成的（有限的）对象链。
-* 面向对象三大特点
+45. 面向对象三大特点
 
         封装：讲现实中一个事物的属性和方法，集中定义在程序中的一个对象中。（更接近于人的想法，便于代码维护。）
         继承：父对象中的成员，子对象可以直接使用。（代码重用！节约内存空间）
@@ -671,7 +656,7 @@ add.bind(sub,4,2)();　// 6 add替换sub
         重载：多个同名方法，但参数列表不同，调用时，可根据传入参数的不同，动态决定调用何种匹配的方法。(便于调用，减少调用者负担。js语法不支持重载，但可用arguments对象模拟重载效果。)
         重写：子对象觉得父对象的成员不好用，可在本地定义与父对象同名的成员，覆盖父对象的成员。(专门定义子对象与父对象之间的差异。)
 
-* 一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？
+46. 一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？
 
         （1）查找浏览器缓存
         （2）DNS解析、查找该域名对应的IP地址、重定向（301）、发出第二个GET请求
@@ -681,13 +666,13 @@ add.bind(sub,4,2)();　// 6 add替换sub
         （6）html文档开始下载
         （7）文档树建立，根据标记请求所需指定MIME类型的文件
         （8）文件显示
-* BFC规范
+47. BFC规范
 
         块级格式化上下文，一个创建了新的BFC的盒子是独立布局的，盒子里面的子元素的样式不会影响到外面的元素。在同一个BFC中的两个毗邻的块级盒在垂直方向（和布局方向有关系）的margin会发生折叠。
-* 对webpack的看法
+48. 对webpack的看法
 
         WebPack 是一个模块打包工具，你可以使用WebPack管理你的模块依赖，并编绎输出模块们所需的静态文件。它能够很好地管理、打包Web开发中所用到的HTML、JavaScript、CSS以及各种静态文件（图片、字体等），让开发过程更加高效。对于不同类型的资源，webpack有对应的模块加载器。webpack模块打包器会分析模块间的依赖关系，最后 生成了优化且合并后的静态资源。
-* 性能优化的方法
+49. 性能优化的方法
 
         （1） 减少http请求次数：CSS Sprites, JS、CSS源码压缩、图片大小控制合适；网页Gzip，CDN托管，data缓存 ，图片服务器。
         （2） 前端模板 JS+数据，减少由于HTML标签导致的带宽浪费，前端用变量保存AJAX请求结果，每次操作本地变量，不用请求，减少请求次数
@@ -696,12 +681,12 @@ add.bind(sub,4,2)();　// 6 add替换sub
         （5） 少用全局变量、缓存DOM节点查找的结果。减少IO读取操作。
         （6） 避免使用CSS Expression（css表达式)又称Dynamic properties(动态属性)。
         （7） 图片预加载，将样式表放在顶部，将脚本放在底部  加上时间戳。
-* 304缓存的原理
+50. 304缓存的原理
 
         服务器首先产生ETag，服务器可在稍后使用它来判断页面是否已经被修改。本质上，客户端通过将该记号传回服务器要求服务器验证其（客户端）缓存。
         304是HTTP状态码，服务器用来标识这个文件没修改，不返回内容，浏览器在接收到个状态码后，会使用浏览器已缓存的文件
         客户端请求一个页面（A）。 服务器返回页面A，并在给A加上一个ETag。 客户端展现该页面，并将页面连同ETag一起缓存。 客户再次请求页面A，并将上次请求时服务器返回的ETag一起传递给服务器。服务器检查该ETag，并判断出该页面自上次客户端请求之后还未被修改，直接返回响应304（未修改——Not Modified）和一个空的响应体。
-* Promise 的构造函数
+51. Promise 的构造函数
 ```javascript
 var promise = new Promise(function(resolve, reject) {
     if (...) {  // succeed
@@ -711,19 +696,19 @@ var promise = new Promise(function(resolve, reject) {
     }
 });
 ```
-* 对MVC、MVVM的理解
+52. 对MVC、MVVM的理解
 
         MVC：是一种Web架构的模式。特点：把业务逻辑、模型数据、用户界面分离开来，让开发者将数据与表现解耦。
         MVC三要素：Model（数据模型）、View（视图）、Contorller（控制器）
         MVVM：是一种基于前端开发的架构模式。核心是提供对View 和 ViewModel 的双向数据绑定，View和Model之间并没有直接的联系，而是通过ViewModel进行交互，View的变动，自动反映在ViewModel上，反之亦然，这样就保证视图和数据的一致性。
         MVVM：View UI布局，展示数据、Model 管理数据、Controller 响应用户操作，并将 Model 更新到 View 上
-* 跨域请求资源的方法有哪些
+53. 跨域请求资源的方法有哪些
 
         （1）JSONP（jsonp 跨域 get 请求） ：这种方式主要是通过动态插入一个script标签。浏览器对script的资源引用没有同源限制，同时资源加载到页面后会立即执行（没有阻塞的情况下）。
         （2）proxy 代理：这种方式首先将请求发送给后台服务器，通过服务器来发送请求，然后将请求的结果传递给前端。
         （3）cors：这是现代浏览器支持跨域资源请求的一种方式。
         （4）XDR：这是IE8、IE9提供的一种跨域解决方案，功能较弱只支持get跟post请求，而且对于协议不同的跨域是无能为力的，比如在http协议下发送https请求。
-* 变量提升
+54. 变量提升
 ```javascript
 console.log(foo); // function foo
 function foo() { console.log('function foo') }
